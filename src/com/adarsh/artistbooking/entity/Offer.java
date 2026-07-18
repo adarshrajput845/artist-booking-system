@@ -68,6 +68,17 @@ public class Offer {
         this.expiryTime = time;
     }
 
+    public long getId() {
+        return id;
+    }
+    public long getEventId() {
+        return eventId;
+    }
+
+    public void assignId(long id){
+        this.id = id;
+    }
+
     private void validateProposedAmount(Money amount) {
         if(amount == null)
         {
