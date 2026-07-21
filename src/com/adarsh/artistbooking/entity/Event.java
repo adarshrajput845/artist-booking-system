@@ -29,6 +29,10 @@ public class Event {
         this.offers = new ArrayList<>();
     }
 
+    public long getId() {
+        return id;
+    }
+
     public String getEventName() {
         return eventName;
     }
@@ -49,10 +53,18 @@ public class Event {
         validateName(eventName);
         this.eventName = eventName;
     }
+    public void assignId(long id) {
+        this.id = id;
+    }
 
     public List<Offer> getOffers() {
         return Collections.unmodifiableList(offers);
     }
+
+    public void cancelEvent(){
+        this.status = EventStatus.Cancelled;
+    }
+    public void cancelOffer(long offerId){}
 
     public void addOffer(Offer offer)
     {

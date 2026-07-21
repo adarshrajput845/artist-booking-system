@@ -15,7 +15,7 @@ public class OfferRepository {
         this.offers =  new HashMap<>();
         this.nextId = 1;
     }
-    public Offer save(Offer offer)
+    public Offer saveOffer(Offer offer)
     {
         if(offer.getId() == 0){
             offer.assignId(nextId++);

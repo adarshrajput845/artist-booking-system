@@ -8,12 +8,12 @@ public class Artist {
     private Category category;
     private int experience;
     private String city;
-    private double expectedAmount;
+    private Money expectedAmount;
     private double rating;
 
-    public Artist (long id, String name, Category category, String  city, int experience, double expectedAmount
+    public Artist ( String name, Category category, String  city, int experience, Money expectedAmount
             ) {
-        this.id = id;
+        this.id = 0;
         validateName(name);
             this.name = name;
         this.category = category;
@@ -52,11 +52,17 @@ public class Artist {
         return rating;
     }
 
-    public double getExpectedAmount() {
+    public Money getExpectedAmount() {
         return expectedAmount;
     }
 
     // setters
+    public void assignId(long id){
+        this.id = id;
+    }
+    public void assignName (String name) {
+        this.name = name;
+    }
 
     public void changeName(String name) {
         validateName(name);
@@ -70,7 +76,7 @@ public class Artist {
 
         this.experience = experience;
     }
-    public void changeExpectedAmount(double expectedAmount) {
+    public void changeExpectedAmount(Money expectedAmount) {
         validateExpectedAmount(expectedAmount);
             this.expectedAmount = expectedAmount;
     }
@@ -99,9 +105,9 @@ public class Artist {
         }
 
     }
-    public void validateExpectedAmount(double expectedAmount){
+    public void validateExpectedAmount(Money expectedAmount){
 
-            if (expectedAmount <= 0) {
+            if (expectedAmount.amount <= 0) {
                 throw new IllegalArgumentException(
                         "Expected Amount cannot be negative or Zero");
             }

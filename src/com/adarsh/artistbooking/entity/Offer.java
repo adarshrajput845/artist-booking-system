@@ -14,8 +14,8 @@ public class Offer {
     private LocalDateTime expiryTime;
     private OfferStatus status;
 
-    public Offer(long id, long eventId, long slotId, Money proposedAmount, LocalDateTime expiryTime) {
-        this.id = id;
+    public Offer(long eventId, long slotId, Money proposedAmount, LocalDateTime expiryTime) {
+        this.id = 0;
         this.eventId = eventId;
         this.slotId = slotId;
         validateProposedAmount(proposedAmount);
@@ -66,6 +66,10 @@ public class Offer {
         ensureInProgress();
         validateExpiryTime(time);
         this.expiryTime = time;
+    }
+
+    public long getSlotId() {
+        return slotId;
     }
 
     public long getId() {

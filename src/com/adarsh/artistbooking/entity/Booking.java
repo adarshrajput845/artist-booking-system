@@ -14,10 +14,9 @@ public class Booking {
 
     private Money advanceAmount;
 
-    public Booking(long id,
-                   long offerId,
+    public Booking(long offerId,
                    Money advanceAmount){
-        this.id = id;
+        this.id = 0;
         this.offerId = offerId;
         validateadvanceAmount(advanceAmount);
         this.advanceAmount = advanceAmount;
@@ -26,6 +25,9 @@ public class Booking {
     }
     public long getId() {
         return id;
+    }
+    public long getOfferId() {
+        return offerId;
     }
     public BookingStatus getStatus() {
         return status;
@@ -37,6 +39,10 @@ public class Booking {
         return advanceAmount;
     }
 
+    public void assignId(long id)
+    {
+        this.id = id;
+    }
     public void confirmPayment(){
         // only creted booking
         ensureCreatedBooking();

@@ -13,8 +13,8 @@ public class Slot {
     private SlotStatus status;
 
 
-    public Slot(long id, long artistId, LocalDateTime startTime, LocalDateTime endTime) {
-        this.id = id;
+    public Slot(long artistId, LocalDateTime startTime, LocalDateTime endTime) {
+        this.id = 0;
         this.artistId = artistId;
         validateTime(startTime);
         validateTime(endTime);
@@ -34,18 +34,34 @@ public class Slot {
     public SlotStatus getStatus(){
         return status;
     }
+    public long getId() {
+        return id;
+    }
+
+    public long getArtistId() {
+        return artistId;
+    }
     public boolean overlapsWith(Slot other){
         return this.startTime.isBefore(other.endTime)
                 && other.startTime.isBefore(this.endTime);
 
     }
 
+    public void assignId(long artistId) {
+        this.artistId = artistId;
+    }
+
     public void markBooked(){
-        validateAvailability(this.status);
+        validateRerservedStatus(this.status);
         this.status = SlotStatus.BOOKED;
     }
     public void markAvailable(){
-        this.status = SlotStatus.AVAILABLE;
+        if(status == SlotStatus.AVAILABLE){
+            throw new IllegalStateException(
+                    "Slot is already available."
+            );
+        }
+        status = SlotStatus.AVAILABLE;
     }
     public void markUnavailable(){
         validateAvailability(this.status);
@@ -56,6 +72,10 @@ public class Slot {
         this.status = SlotStatus.DELETED;
 
     }
+    public void markReserved(){
+        validateAvailability(this.status);
+        this.status = SlotStatus.RESERVED;
+    }
 
     public void updateTime(LocalDateTime newStart, LocalDateTime newEnd){
         validateBookedstatus(this.status);
@@ -64,6 +84,12 @@ public class Slot {
         validateEndTime(newStart, newEnd);
         this.startTime = newStart;
         this.endTime = newEnd;
+    }
+
+    private void validateRerservedStatus(SlotStatus status){
+        if(status != SlotStatus.RESERVED){
+            throw new IllegalArgumentException(String.format("Slot status %s is not reserved", status));
+        }
     }
 
 
